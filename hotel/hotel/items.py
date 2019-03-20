@@ -8,7 +8,7 @@
 import scrapy
 
 
-class AntispiderItem(scrapy.Item):
+class HotelItem(scrapy.Item):
     # define the fields for your item here like:
     # name = scrapy.Field()
     pass

@@ -4,11 +4,10 @@
 #
 # See documentation in:
 # https://doc.scrapy.org/en/latest/topics/items.html
-
 import scrapy
 
 
-class IntroductionItem(scrapy.Item):
-    # define the fields for your item here like:
-    # name = scrapy.Field()
-    pass
+# 定义一些字段，这些字段用来临时存储你需要保存的数据。方便后面保存数据到其他地方.
+# 比如数据库 或者 本地文本之类的。
+class BlogItem(scrapy.Item):
+    title = scrapy.Field()
