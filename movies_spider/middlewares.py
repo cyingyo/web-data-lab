@@ -8,7 +8,7 @@
 from scrapy import signals
 
 
-class IntroductionSpiderMiddleware(object):
+class MoviesSpiderSpiderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the spider middleware does not modify the
     # passed objects.
@@ -56,9 +56,7 @@ class IntroductionSpiderMiddleware(object):
         spider.logger.info('Spider opened: %s' % spider.name)
 
 
-# 在引擎及下载器之间的特定钩子(specific hook), 处理Downloader传递给引擎的response.
-# 其提供了一个简便的机制, 通过插入自定义代码来扩展Scrapy功能.
-class IntroductionDownloaderMiddleware(object):
+class MoviesSpiderDownloaderMiddleware(object):
     # Not all methods need to be defined. If a method is not defined,
     # scrapy acts as if the downloader middleware does not modify the
     # passed objects.
@@ -70,7 +68,6 @@ class IntroductionDownloaderMiddleware(object):
         crawler.signals.connect(s.spider_opened, signal=signals.spider_opened)
         return s
 
-    # 引擎将URL通过下载中间件(请求(request)方向)转发给下载器(Downloader)。
     def process_request(self, request, spider):
         # Called for each request that goes through the downloader
         # middleware.
@@ -83,7 +80,6 @@ class IntroductionDownloaderMiddleware(object):
         #   installed downloader middleware will be called
         return None
 
-    # 一旦页面下载完毕，下载器生成一个该页面的Response，并将其通过下载中间件(返回(response)方向)发送给引擎。
     def process_response(self, request, response, spider):
         # Called with the response returned from the downloader.
 
@@ -103,6 +99,5 @@ class IntroductionDownloaderMiddleware(object):
         # - return a Request object: stops process_exception() chain
         pass
 
-    # 当启动爬虫时
     def spider_opened(self, spider):
         spider.logger.info('Spider opened: %s' % spider.name)
