@@ -4,17 +4,9 @@ import random
 import requests
 import time
 from bs4 import BeautifulSoup
-from native_spider import db
+from spider.native_spider import db
 
 table = db['douban']
-
-# header = {
-#     'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/74.0.3729.169 Safari/537.36',
-#     'Accept-Language': 'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,zh-CN;q=0.6',
-#     'Connection': 'keep-alive',
-#     'Host': 'movie.douban.com',
-#     'Referer': 'https://movie.douban.com/'
-# }
 
 headers = [
     {'User-Agent': 'Mozilla/5.0 (Windows; U; Windows NT 6.1; en-US; rv:1.9.1.6) Gecko/20091201 Firefox/3.5.6'},

@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="en">
+
+<head>
+    <title>书籍详情-书店管理</title>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <!-- VENDOR CSS -->
+    <link rel="stylesheet" href="/assets/vendor/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/assets/vendor/bootstrap-dialog/css/bootstrap-dialog.min.css">
+    <link rel="stylesheet" href="/assets/vendor/font-awesome/css/font-awesome.min.css">
+    <link rel="stylesheet" href="/assets/vendor/linearicons/style.css">
+    <link rel="stylesheet" href="/assets/vendor/chartist/css/chartist-custom.css">
+    <!-- MAIN CSS -->
+    <link rel="stylesheet" href="/assets/css/main.css">
+    <!-- FOR DEMO PURPOSES ONLY. You should remove this in your project -->
+    <link rel="stylesheet" href="/assets/css/bookdetail.css">
+    <!-- GOOGLE FONTS -->
+    <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,600,700" rel="stylesheet">
+    <!-- ICONS -->
+    <link rel="apple-touch-icon" sizes="76x76" href="/assets/img/favicon.png">
+    <link rel="icon" type="image/png" sizes="96x96" href="/assets/img/favicon.png">
+</head>
+
+<body class="layout-fullwidth">
+<!-- WRAPPER -->
+<div id="wrapper">
+    <!-- NAVBAR -->
+    <nav class="navbar navbar-default navbar-fixed-top">
+        <div class="brand">
+            <a href="/book"><img src="/assets/img/logo-dark.png" alt="Klorofil Logo" class="img-responsive logo"></a>
+        </div>
+        <div class="container-fluid">
+            <form class="navbar-form navbar-left">
+                <div class="input-group">
+                    <input v-model="key" type="text" value="" class="form-control" placeholder="Search ...">
+                    <span @click="toSearch" class="input-group-btn"><button type="button" class="btn btn-primary">Go</button></span>
+                </div>
+            </form>
+            <div id="navbar-menu">
+                <ul class="nav navbar-nav navbar-right">
+                    <li class="dropdown">
+                        <a id="book-cart" href="/cart"><i class="lnr lnr-cart"></i> <span>购物车</span></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown"><img src="/assets/img/user.png" class="img-circle" alt="Avatar"> <span>{{ username }}</span> <i class="icon-submenu lnr lnr-chevron-down"></i></a>
+                        <ul class="dropdown-menu">
+                            <li><a href="/order"><i class="lnr lnr-cog"></i> <span>我的订单</span></a></li>
+                            <li><a href="/api/account/logout"><i class="lnr lnr-exit"></i> <span>退出</span></a></li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </div>
+    </nav>
+    <!-- END NAVBAR -->
+
+    <!-- MAIN -->
+    <div class="main">
+        <!-- MAIN CONTENT -->
+        <div class="main-content">
+            <div class="container-fluid">
+
+                <h3 class="page-title">书籍详情</h3>
+
+                <div class="row">
+
+                    <!-- BookImage -->
+                    <div class="col-md-4">
+                        <div class="thumbnail">
+                            <div class="img">
+                                <a href="#">
+                                    <img :src="book.imgUrl">
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                    <!-- BookImage End -->
+
+                    <div class="col-md-8">
+                        <div class="content">
+                            <h1>《{{ book.bookName }}》</h1>
+                            <div class="info">
+                                <span>作者：{{ book.authorName }}</span>
+                            </div>
+                            <h2><span class="">内容简介</span></h2>
+                            <div id="link-report" class="indent">
+                                <div class="">
+                                    <div class="intro">
+                                        <p>
+                                            <span style="font-family: 'trebuchet ms', geneva, sans-serif; font-size: 14pt;">{{ book.description }}</span></p>
+                                    </div>
+                                </div>
+                            </div>
+                            <h2><span>售价</span></h2>
+                            <div class="old-price">
+                                <span>原价</span>
+                                <strong :class="{'old-str': book.discount}">
+                                    <em>￥</em><em>{{ book.price }}</em>
+                                </strong>
+                            </div>
+                            <div v-if="book.discount" class="new-price">
+                                <span>折扣价</span>
+                                <strong>
+                                    <em>￥</em><em>{{ book.price * book.discountAmount }}</em>
+                                </strong>
+                            </div>
+                            <div v-if="!book.stock">
+                                <h2><span>特别说明</span></h2>
+                                <p><span>本书籍为预售书籍！购买后不会立即发货！</span></p>
+                                <p>开始发货时间为(根据支付时间决定，早买早发货): {{ book.stockDate | formatDate }}</p>
+                            </div>
+
+                            <p class="link pull-right"><button @click="addToCart()" class="btn btn-success">加入购物车</button></p>
+                        </div>
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+        <!-- END MAIN CONTENT -->
+    </div>
+
+    <!-- END MAIN -->
+    <div class="clearfix"></div>
+    <footer>
+        <div class="container-fluid">
+
+        </div>
+    </footer>
+
+</div>
+<!-- END WRAPPER -->
+</body>
+
+<!-- Javascript -->
+<script src="/assets/vendor/jquery/jquery.min.js"></script>
+<script src="/assets/vendor/bootstrap/js/bootstrap.min.js"></script>
+<script src="/assets/vendor/bootstrap-dialog/js/bootstrap-dialog.min.js"></script>
+<script src="/assets/vendor/jquery-slimscroll/jquery.slimscroll.min.js"></script>
+<script src="/assets/vendor/jquery.easy-pie-chart/jquery.easypiechart.min.js"></script>
+<script src="/assets/vendor/chartist/js/chartist.min.js"></script>
+<script src="/assets/vendor/vue/vue.js"></script>
+<script src="/assets/vendor/vue/vue-resource.js"></script>
+<script src="/assets/js/common.js"></script>
+<script src="/assets/js/api.js"></script>
+
+<script>
+    let app = new Vue({
+        el: '#wrapper',
+        data: {
+            username: localStorage.username,
+            id: '',
+            book: {},
+            key: ''
+        },
+        methods: {
+            fetchBook() {
+                let vm = this;
+
+                this.$http.get(api.book.one + this.id)
+                    .then(resp => {
+                        let result = resp.body;
+
+                        if (result.success) {
+                            vm.book = result.data;
+                        }
+                    })
+            },
+            toSearch() {
+                window.location.href = '/search/' + this.key;
+            },
+            addToCart() {
+                let vm = this;
+
+                this.$http.post(api.cart.addNew + this.id)
+                    .then(resp => {
+                        let result = resp.body;
+                        if (result.success) {
+                            BootstrapDialog.alert("添加成功！")
+                        } else {
+                            console.log(resp);
+                        }
+                    })
+            }
+        },
+        created() {
+            let url = window.location.href;
+            let arr = url.split('/');
+            this.id = arr[arr.length-1];
+
+            // this.book = {"authorName":"金庸","bookName":"射雕英雄传","description":"《射雕英雄传》是金庸的代表作之一，作于一九五七年到一九五九年，在《香港商报》连载。《射雕》中的人物个性单纯，郭靖诚朴厚重、黄蓉机智狡狯，读者容易印象深刻。这是中国传统小说和戏剧的特征，但不免缺乏人物内心世界的复杂性。由于人物性格单纯而情节热闹，所以《射雕》比较得到欢迎， 被拍成各种语种的电影和电视剧在全球众多国家和地区热播。","discount":false,"discountAmount":0.9,"id":1,"imgUrl":"http://mebook.cc/wp-content/uploads/2017/07/48101500193508.png","leftCount":199,"price":70.0,"soldCount":0,"stock":true,"stockDate":1536750660000,"version":3}
+            this.fetchBook();
+        },
+        filters: {
+            formatDate(value) {
+                let date = new Date(value);
+                let Y = date.getFullYear() + '-';
+                let M = (date.getMonth()+1 < 10 ? '0'+(date.getMonth()+1) : date.getMonth()+1) + '-';
+                let D = date.getDate() + ' ';
+                let h = date.getHours() + ':';
+                let m = date.getMinutes() + ':';
+                let s = date.getSeconds();
+                return Y + M + D + h + m + s;
+            }
+        }
+    })
+</script>
+
+</html>

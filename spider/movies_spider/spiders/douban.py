@@ -5,7 +5,7 @@ import json
 import scrapy
 from bs4 import BeautifulSoup
 from scrapy.spiders import Spider
-from movies_spider.items import DoubanMoviesItem
+from spider.movies_spider.items import DoubanMoviesItem
 
 
 class ReviewSpider(Spider):
