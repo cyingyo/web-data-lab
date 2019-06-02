@@ -110,7 +110,7 @@ def get_movies_list():
     url_format = 'https://movie.douban.com/j/new_search_subjects?sort=T&range=0,10&tags=&start={0}&year_range={1},{1}'
 
     count = 1
-    for y in range(2018, 2019):
+    for y in range(2019, 2020):
         for s in range(0, 500, 20):
             # 豆瓣使用bid作为反爬策略，生成随机字符串即可应对，否则会封ip
             generate_cookie()

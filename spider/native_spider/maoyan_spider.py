@@ -227,4 +227,5 @@ class Maoyan:
 
 if __name__ == '__main__':
     spider = Maoyan()
-    spider.start_crawling(5, 5, 2000)
+    spider.start_crawling(14, 14)
+    # 1201982

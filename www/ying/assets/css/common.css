@@ -25,3 +25,25 @@ a:hover, a:focus {
 .sale-title {
     color: #6CF;
 }
+
+.brand {
+    max-height: 100%;
+    max-width: 100%;
+    padding-right: 50px;
+}
+
+.main-content {
+    padding-left: 100px;
+    padding-right: 100px;
+}
+
+.nav-custom {
+    padding-left: 100px;
+    padding-right: 100px;
+    /*margin: 0 auto;*/
+    /*width: 1040px;*/
+}
+
+.main {
+
+}
