@@ -71,7 +71,7 @@ class Douban:
                         time.sleep(2 + random.random() * 1.3)
                         print('{}，{} - 成功获取 {} 的信息及评论！'.format(y, s, _j['title']))
                 except Exception as e:
-                    hasCookies = False
+                    self.has_cookies = False
                     print('获取List失败！-> {}'.format(e))
             # 每次爬完一年的数据，等一会再爬，会封 ip
             time.sleep(600 + random.random() * 600)
@@ -121,6 +121,7 @@ class Douban:
             movie['description'] = _desc
             movie['comments'] = _cmts
         except Exception as e:
+            self.has_cookies = False
             print('获取电影 {} 详细信息失败！-> {}'.format(movie['title'], e))
 
     def store_data(self, movie):
