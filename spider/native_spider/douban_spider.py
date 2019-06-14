@@ -4,24 +4,31 @@ import random
 import requests
 import time
 from bs4 import BeautifulSoup
-from spider.native_spider import db
+from pymongo import MongoClient
+
+__username__ = 'cying'
+__password__ = 'Hk8Thdtnct'
+__host__ = '39.106.55.9:27017'
+__mongo_url__ = 'mongodb://{}:{}@{}'.format(__username__, __password__, __host__)
+
+__mg__ = MongoClient(__mongo_url__)
+db = __mg__['webdata']
 
 
 class Douban:
     def __init__(self):
-        self.list_tmp = ''
+        self.list_tmp = 'https://movie.douban.com/j/new_search_subjects?sort=T&range=0,10&tags=&start={0}&year_range={1},{1}'
         self.movie_tmp = 'https://movie.douban.com/subject/{0}/'
         self.has_cookies = False
         self.db = db['douban_f']
 
     def header(self):
         header = {
-            'Accept': '*/*;',
+            'Accept': 'text/html,application/xhtml+xml,application/xml;q=0.9,image/webp,image/apng,*/*;q=0.8,application/signed-exchange;v=b3',
             'Connection': 'keep-alive',
-            'Accept-Language': 'zh-CN,zh;q=0.9',
+            'Accept-Language': 'en-US,en;q=0.9,zh-TW;q=0.8,zh;q=0.7,zh-CN;q=0.6',
             'Accept-Encoding': 'gzip, deflate, br',
-            'Host': 'douban.com',
-            'Referer': 'http://douban.com/',
+            'Host': 'movie.douban.com'
         }
         uas = [
             'Mozilla/5.0 (X11; Linux x86_64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/67.0.3396.87 Safari/537.36',
@@ -45,7 +52,7 @@ class Douban:
         cookies['bid'] = bid
         return cookies
 
-    def start_crawling(self, s, e, limit = 500):
+    def start_crawling(self, s, e, limit=500):
         for y in range(s, e+1):
             for s in range(0, limit, 20):
                 url = self.list_tmp.format(s, y)
@@ -72,7 +79,7 @@ class Douban:
                         print('{}，{} - 成功获取 {} 的信息及评论！'.format(y, s, _j['title']))
                 except Exception as e:
                     self.has_cookies = False
-                    print('获取List失败！-> {}'.format(e))
+                    print('获取List失败！-> {} -> {}'.format(e, url))
             # 每次爬完一年的数据，等一会再爬，会封 ip
             time.sleep(600 + random.random() * 600)
         print('爬取{}-{}年电影完成'.format(s, e))

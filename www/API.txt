@@ -5,7 +5,8 @@
     request: {
         location: '',
         year: '',
-        type: ''
+        type: '',
+        rate: ''
     }
     response: {
         data: {
@@ -22,7 +23,7 @@
         }
     }
 
-3.  获取单信息记录
+2.  获取单信息记录
     GET
     /api/movie/{title}
     request: {
@@ -40,9 +41,9 @@
         }
     }
 
-4.  检索电影
+3.  检索电影
     GET
-    /api/movie/search/{keywords}
+    /api/movie/search/{keywords}/{page}
     request: {
     }
     response: {

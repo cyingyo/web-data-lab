@@ -1,0 +1,16 @@
+.type-item {
+    color: #999;
+    cursor: pointer;
+    font-size: 14px;
+    font-weight: 500;
+    border-radius: 3px;
+    padding: 0 4px 2px;
+}
+.type-item:hover {
+    color: #3b98c8;
+}
+
+.type-now {
+    color: #fff;
+    background: #3b98c8;
+}
